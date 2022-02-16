@@ -32,7 +32,7 @@ public class StockManager {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		Category category = new Category("Computer");
+/*		Category category = new Category("Computer");
 		
 		Product pc = new Product("DELL PC", "Quad-core PC", 1200, category);
 		
@@ -51,7 +51,7 @@ public class StockManager {
 		category.setProducts(products);
 		
 		session.save(category);
-		
+*/		
 		session.getTransaction().commit();
 		session.close();		
 	}
