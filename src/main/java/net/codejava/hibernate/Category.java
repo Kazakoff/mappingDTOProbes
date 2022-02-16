@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,7 +30,7 @@ public class Category {
 
 	@Id
 	@Column(name = "CATEGORY_ID")
-	@GeneratedValue
+            @GeneratedValue
 	public long getId() {
 		return id;
 	}
@@ -46,7 +47,7 @@ public class Category {
 		this.name = name;
 	}
 
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "categorys", cascade = CascadeType.ALL)
 	public Set<Product> getProducts() {
 		return products;
 	}
