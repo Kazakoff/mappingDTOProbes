@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.mapping.Set;
-// dfsgtrfh
+
 @Entity
 @Data
 @Table(name = "PRODUCT")

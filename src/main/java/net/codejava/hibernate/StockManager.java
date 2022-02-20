@@ -5,25 +5,44 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import net.codejava.hibernate.DTO.ProductDTO;
+import org.hibernate.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.modelmapper.ModelMapper;
 
 
 public class StockManager {
-
-	public static void main(String[] args) {
-		// loads configuration and mappings
-		Configuration configuration = new Configuration().configure();
+    static  SessionFactory sessionFactory;
+static{
+    		Configuration configuration = new Configuration().configure();
 		ServiceRegistryBuilder registry = new ServiceRegistryBuilder();
 		registry.applySettings(configuration.getProperties());
 		ServiceRegistry serviceRegistry = registry.buildServiceRegistry();
-		
-		// builds a session factory from the service registry
-		SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+}
+	public static void main(String[] args) {
+            fillDB();
+            Session session = sessionFactory.openSession();
+	    session.beginTransaction();
+            Query q = session.createQuery("FROM Product");
+            List <Product> products = q.list();
+            ModelMapper modelMapper = new ModelMapper();
+            ProductDTO productDTO;
+            for (Product p : products)
+            {
+                productDTO = modelMapper.map(p, ProductDTO.class);
+                System.out.println(productDTO);
+            }
+            session.close();
+	}
+        
+       public static void fillDB() {
+
 		
 		// obtains the session
 		Session session = sessionFactory.openSession();
@@ -53,5 +72,5 @@ public class StockManager {
 		
 		session.getTransaction().commit();
 		session.close();		
-	}
+       } 
 }
