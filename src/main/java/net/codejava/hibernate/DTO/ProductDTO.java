@@ -28,7 +28,8 @@ public class ProductDTO {
 	private float price;
         private float amount;
         @Override
+        
         public String toString(){
-            return name + " - " + description;
+            return name + " - " + description + ", " + price + " - " + amount ;
         }
 }
